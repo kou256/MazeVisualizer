@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeVisualizer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="700" Width="700">
+    <Canvas Name="maze" HorizontalAlignment="Left" Height="544" Margin="16" VerticalAlignment="Top" Width="544">
+    </Canvas>
 </Window>
