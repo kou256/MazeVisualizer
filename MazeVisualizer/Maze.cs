@@ -92,5 +92,11 @@ namespace MazeVisualizer
                 }
             }
         }
+
+        /* 迷路のマス目を削除する */
+        public void eraseGrid(Canvas target_canvas)
+        {
+            target_canvas.Children.Clear();
+        }
     }
 }

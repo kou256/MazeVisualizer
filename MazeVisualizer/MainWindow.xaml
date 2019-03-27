@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeVisualizer"
         mc:Ignorable="d"
-        Title="MazeVisualizer" Height="559" Width="850">
-    <Border BorderBrush="#FF939090" BorderThickness="1" Height="504" Width="504" Margin="8,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas Name="maze" Margin="3">
-            <StackPanel Canvas.Left="512" Width="220">
-                <Slider x:Name="grid_count" LargeChange="1" Maximum="16" SmallChange="1" Minimum="2" TickPlacement="BottomRight" IsSnapToTickEnabled="true" Value="8"/>
-                <TextBlock Text="{Binding Value, ElementName=grid_count}" />
-            </StackPanel>
-            <StackPanel Height="27" Canvas.Left="512" Canvas.Top="470" Width="202">
-                <DockPanel Height="25" LastChildFill="False" Canvas.Left="558" Canvas.Top="451" Width="200" Margin="1,0">
-                    <Button x:Name="maze_generate" Content="Generate" Click="mazeGenerate" Margin="2" Width="96" Height="21"/>
-                    <Button x:Name="maze_reset" Content="Reset" Click="mazeReset" Margin="2" Width="96" Height="21"/>
-                </DockPanel>
-            </StackPanel>
-        </Canvas>
-    </Border>
+        Title="MazeVisualizer" Height="559" Width="791">
+    <Canvas HorizontalAlignment="Left" Width="772">
+        <Border Name="maze_area" BorderBrush="#FF939090" BorderThickness="1" Height="504" Width="504" Margin="8,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Canvas Name="maze" Margin="3"/>
+        </Border>
+        <Border Name="gui_area" Height="510" Width="228" Canvas.Left="534" BorderBrush="#FF939090" VerticalAlignment="Top" Canvas.Top="8">
+            <Canvas Margin="3">
+                <StackPanel Canvas.Left="10" Width="202" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Slider x:Name="grid_count" LargeChange="1" Maximum="16" SmallChange="1" Minimum="2" TickPlacement="BottomRight" IsSnapToTickEnabled="true" Value="8"/>
+                    <TextBlock Text="{Binding Value, ElementName=grid_count}"/>
+                </StackPanel>
+                <StackPanel Height="27" Canvas.Left="10" Canvas.Top="476" Width="202" VerticalAlignment="Bottom">
+                    <DockPanel Height="25" LastChildFill="False" Canvas.Left="558" Canvas.Top="451" Width="200" Margin="1,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Button x:Name="maze_generate" Content="Generate" Click="mazeGenerate" Margin="2" Width="96" Height="21"/>
+                        <Button x:Name="maze_reset" Content="Reset" Click="mazeReset" Margin="2" Width="96" Height="21"/>
+                    </DockPanel>
+                </StackPanel>
+            </Canvas>
+        </Border>
+    </Canvas>
 
 </Window>
