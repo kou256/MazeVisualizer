@@ -11,21 +11,23 @@ namespace MazeVisualizer
     public partial class MainWindow : Window
     {
         Maze m;
+        Gui g;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void mazeGenerate(object sender, RoutedEventArgs e)
+        private void generateMaze(object sender, RoutedEventArgs e)
         {
             m = new Maze(16, 16, (int)grid_count.Value, (int)grid_count.Value);
-            m.drawGrid(maze);
+            g = new Gui();
+            g.drawMazeGrid(maze, m.Grid_Height, m.Grid_Width, m.Grid_Row, m.Grid_Column);
         }
 
-        private void mazeReset(object sender, RoutedEventArgs e)
+        private void resetMaze(object sender, RoutedEventArgs e)
         {
-            m.eraseGrid(maze);
+            g.eraseMazeGrid(maze);
         }
     }
 }

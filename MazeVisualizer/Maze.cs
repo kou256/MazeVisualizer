@@ -1,8 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-
-namespace MazeVisualizer
+﻿namespace MazeVisualizer
 {
     class Maze
     {
@@ -70,33 +66,5 @@ namespace MazeVisualizer
             }
         }
 
-        /* 迷路のマス目を描画する */
-        public void drawGrid(Canvas target_canvas)
-        {
-            Rectangle[,] grid = new Rectangle[grid_row, grid_column];
-
-            for (int i = 0; i < grid_row; i++)
-            {
-                for (int j = 0; j < grid_column; j++)
-                {
-                    grid[i, j] = new Rectangle();
-                    grid[i, j].Stroke = Brushes.Black;
-                    grid[i, j].Fill = Brushes.White;
-                    grid[i, j].Height = grid_height;
-                    grid[i, j].Width = grid_width;
-
-                    Canvas.SetTop(grid[i, j], i * (grid_height - 1));
-                    Canvas.SetLeft(grid[i, j], j * (grid_width - 1));
-
-                    target_canvas.Children.Add(grid[i, j]);
-                }
-            }
-        }
-
-        /* 迷路のマス目を削除する */
-        public void eraseGrid(Canvas target_canvas)
-        {
-            target_canvas.Children.Clear();
-        }
     }
 }
