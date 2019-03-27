@@ -84,8 +84,10 @@ namespace MazeVisualizer
                     grid[i, j].Fill = Brushes.White;
                     grid[i, j].Height = grid_height;
                     grid[i, j].Width = grid_width;
+
                     Canvas.SetTop(grid[i, j], i * (grid_height - 1));
                     Canvas.SetLeft(grid[i, j], j * (grid_width - 1));
+
                     target_canvas.Children.Add(grid[i, j]);
                 }
             }
