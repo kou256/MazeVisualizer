@@ -7,6 +7,7 @@
         private int grid_width { get; set; }    // 1マスの横幅
         private int grid_row { get; set; }      // 行の数
         private int grid_column { get; set; }   // 列の数
+        private byte[,] grid_info { get; set; } // 上位4bit:上下左右の壁情報、下位4bit:上下左右の探索済み情報
 
         /* コンストラクタ */
         public Maze(int height, int width, int row, int column)
@@ -15,6 +16,14 @@
             Grid_Width = width;
             Grid_Row = row;
             Grid_Column = column;
+            grid_info = new byte[row, column];
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    Grid_Info[i, j] = 0B00000000;
+                }
+            }
         }
 
         /* プロパティのアクセサ */
@@ -66,5 +75,16 @@
             }
         }
 
+        public byte[,] Grid_Info
+        {
+            get
+            {
+                return grid_info;
+            }
+            set
+            {
+                grid_info = value;
+            }
+        }
     }
 }
