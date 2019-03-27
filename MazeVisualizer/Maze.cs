@@ -54,7 +54,7 @@ namespace MazeVisualizer
             }
             set
             {
-                grid_row = value;
+                grid_row = 2 * value + 1;
             }
         }
 
@@ -66,7 +66,7 @@ namespace MazeVisualizer
             }
             set
             {
-                grid_column = value;
+                grid_column = 2 * value + 1;
             }
         }
 

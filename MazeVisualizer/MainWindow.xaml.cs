@@ -13,7 +13,7 @@ namespace MazeVisualizer
             public MainWindow()
             {
                 InitializeComponent();
-                Maze m = new Maze(16, 16, 17, 17);
+                Maze m = new Maze(16, 16, 8, 8);
                 m.drawGrid(maze);
             }
         }
