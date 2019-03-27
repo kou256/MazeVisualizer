@@ -10,8 +10,7 @@ namespace MazeVisualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        Maze m;
-        Gui g;
+        Gui g = new Gui();
 
         public MainWindow()
         {
@@ -20,9 +19,7 @@ namespace MazeVisualizer
 
         private void generateMaze(object sender, RoutedEventArgs e)
         {
-            m = new Maze(16, 16, (int)grid_count.Value, (int)grid_count.Value);
-            g = new Gui();
-            g.drawMazeGrid(maze, m.Grid_Height, m.Grid_Width, m.Grid_Row, m.Grid_Column);
+            g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
 
             if (maze.Children.Count != 0)
             {

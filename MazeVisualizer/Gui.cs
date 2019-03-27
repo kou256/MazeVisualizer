@@ -7,28 +7,37 @@ namespace MazeVisualizer
 {
     class Gui
     {
+        Maze m;
+
         public Gui()
         {
-
         }
 
         /* 迷路のマス目を描画する */
-        public void drawMazeGrid(Canvas target, int height, int width, int row, int column)
+        public void drawMazeGrid(Canvas target, int grid_row, int grid_column)
         {
-            Rectangle[,] grid = new Rectangle[row, column];
+            m = new Maze(grid_row, grid_column);
+            Rectangle[,] grid = new Rectangle[m.Grid_Row, m.Grid_Column];
 
-            for (int i = 0; i < row; i++)
+            for (int i = 0; i < m.Grid_Row; i++)
             {
-                for (int j = 0; j < column; j++)
+                for (int j = 0; j < m.Grid_Column; j++)
                 {
                     grid[i, j] = new Rectangle();
                     grid[i, j].Stroke = Brushes.Black;
-                    grid[i, j].Fill = Brushes.White;
-                    grid[i, j].Height = height;
-                    grid[i, j].Width = width;
+                    if (m.Is_Wall[i, j])
+                    {
+                        grid[i, j].Fill = Brushes.Black;
+                    }
+                    else
+                    {
+                        grid[i, j].Fill = Brushes.White;
+                    }
+                    grid[i, j].Height = m.Grid_Height;
+                    grid[i, j].Width = m.Grid_Width;
 
-                    Canvas.SetTop(grid[i, j], i * (height - 1));
-                    Canvas.SetLeft(grid[i, j], j * (width - 1));
+                    Canvas.SetTop(grid[i, j], i * (m.Grid_Height - 1));
+                    Canvas.SetLeft(grid[i, j], j * (m.Grid_Width - 1));
 
                     target.Children.Add(grid[i, j]);
                 }

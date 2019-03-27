@@ -7,21 +7,30 @@
         private int grid_width { get; set; }    // 1マスの横幅
         private int grid_row { get; set; }      // 行の数
         private int grid_column { get; set; }   // 列の数
-        private byte[,] grid_info { get; set; } // 上位4bit:上下左右の壁情報、下位4bit:上下左右の探索済み情報
+        private bool[,] is_wall { get; set; }
+        private bool[,] is_discoverd { get; set; }
 
         /* コンストラクタ */
-        public Maze(int height, int width, int row, int column)
+        public Maze(int row, int column)
         {
-            Grid_Height = height;
-            Grid_Width = width;
-            Grid_Row = row;
-            Grid_Column = column;
-            grid_info = new byte[row, column];
-            for (int i = 0; i < row; i++)
+            grid_height = 16;
+            grid_width = 16;
+            grid_row = row;
+            grid_column = column;
+            is_wall = new bool[grid_row, grid_column];
+            is_discoverd = new bool[grid_row, grid_column];
+            for (int i = 0; i < grid_row; i++)
             {
-                for (int j = 0; j < column; j++)
+                for (int j = 0; j < grid_column; j++)
                 {
-                    Grid_Info[i, j] = 0B00000000;
+                    if (i == 0 || i == row - 1 || j == 0 || j == column - 1)
+                    {
+                        is_wall[i, j] = true;
+                    }
+                    else
+                    {
+                        is_wall[i, j] = false;
+                    }
                 }
             }
         }
@@ -59,7 +68,7 @@
             }
             set
             {
-                grid_row = 2 * value + 1;
+                grid_row = value;
             }
         }
 
@@ -71,19 +80,31 @@
             }
             set
             {
-                grid_column = 2 * value + 1;
+                grid_column = value;
             }
         }
 
-        public byte[,] Grid_Info
+        public bool[,] Is_Wall
         {
             get
             {
-                return grid_info;
+                return is_wall;
             }
             set
             {
-                grid_info = value;
+                is_wall = value;
+            }
+        }
+
+        public bool[,] Is_Discoverd
+        {
+            get
+            {
+                return is_discoverd;
+            }
+            set
+            {
+                is_discoverd = value;
             }
         }
     }
