@@ -23,11 +23,23 @@ namespace MazeVisualizer
             m = new Maze(16, 16, (int)grid_count.Value, (int)grid_count.Value);
             g = new Gui();
             g.drawMazeGrid(maze, m.Grid_Height, m.Grid_Width, m.Grid_Row, m.Grid_Column);
+
+            if (maze.Children.Count != 0)
+            {
+                maze_generate.IsEnabled = false;
+                maze_reset.IsEnabled = true;
+            }
         }
 
         private void resetMaze(object sender, RoutedEventArgs e)
         {
             g.eraseMazeGrid(maze);
+
+            if (maze.Children.Count == 0)
+            {
+                maze_generate.IsEnabled = true;
+                maze_reset.IsEnabled = false;
+            }
         }
     }
 }

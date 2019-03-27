@@ -18,8 +18,8 @@
                 </StackPanel>
                 <StackPanel Height="27" Canvas.Left="10" Canvas.Top="476" Width="202" VerticalAlignment="Bottom" Margin="0,0,0,3">
                     <DockPanel Height="25" LastChildFill="False" Canvas.Left="558" Canvas.Top="451" Width="200" Margin="1,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Button x:Name="maze_generate" Content="Generate" Click="generateMaze" Margin="2" Width="96" Height="21"/>
-                        <Button x:Name="maze_reset" Content="Reset" Click="resetMaze" Margin="2" Width="96" Height="21"/>
+                        <Button x:Name="maze_generate" Content="Generate" Click="generateMaze" IsEnabled="True" Margin="2" Width="96" Height="21"/>
+                        <Button x:Name="maze_reset" Content="Reset" Click="resetMaze" IsEnabled="False" Margin="2" Width="96" Height="21"/>
                     </DockPanel>
                 </StackPanel>
             </Canvas>
