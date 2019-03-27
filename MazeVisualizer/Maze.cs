@@ -26,10 +26,17 @@
                     if (i == 0 || i == row - 1 || j == 0 || j == column - 1)
                     {
                         is_wall[i, j] = true;
+                        is_discoverd[i, j] = true;
+                    }
+                    else if (i % 2 == 0 && j % 2 == 0)
+                    {
+                        is_wall[i, j] = true;
+                        is_discoverd[i, j] = true;
                     }
                     else
                     {
                         is_wall[i, j] = false;
+                        is_discoverd[i, j] = false;
                     }
                 }
             }
