@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -11,10 +12,16 @@ namespace MazeVisualizer
     public partial class MainWindow : Window
     {
         Gui g = new Gui();
+        ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
+        {
+            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"}
+        };
 
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = mga;
         }
 
         private void generateMaze(object sender, RoutedEventArgs e)
