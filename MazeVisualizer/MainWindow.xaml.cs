@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,11 +23,16 @@ namespace MazeVisualizer
             InitializeComponent();
 
             this.DataContext = mga;
+            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
+            
         }
 
         private void generateMaze(object sender, RoutedEventArgs e)
         {
             g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
+
+            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
+            g.drawMazeWall(maze, item.id);
 
             if (maze.Children.Count != 0)
             {
@@ -43,6 +49,15 @@ namespace MazeVisualizer
             {
                 maze_generate.IsEnabled = true;
                 maze_reset.IsEnabled = false;
+            }
+        }
+
+        private void selectedAlgorithm(object sender, SelectionChangedEventArgs e)
+        {
+            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
+            if (item != null)
+            {
+                maze_generate.IsEnabled = true;
             }
         }
     }

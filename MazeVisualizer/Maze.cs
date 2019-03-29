@@ -19,16 +19,12 @@
             grid_column = column;
             is_wall = new bool[grid_row, grid_column];
             is_discoverd = new bool[grid_row, grid_column];
+
             for (int i = 0; i < grid_row; i++)
             {
                 for (int j = 0; j < grid_column; j++)
                 {
                     if (i == 0 || i == row - 1 || j == 0 || j == column - 1)
-                    {
-                        is_wall[i, j] = true;
-                        is_discoverd[i, j] = true;
-                    }
-                    else if (i % 2 == 0 && j % 2 == 0)
                     {
                         is_wall[i, j] = true;
                         is_discoverd[i, j] = true;
