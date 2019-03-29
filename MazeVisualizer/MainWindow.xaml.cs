@@ -1,7 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace MazeVisualizer
 {
@@ -11,15 +10,26 @@ namespace MazeVisualizer
     public partial class MainWindow : Window
     {
         Gui g = new Gui();
+        ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
+        {
+            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"}
+        };
 
+        /* コンストラクタ */
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = mga;
         }
 
+        /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
         {
             g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
+
+            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
+            g.drawMazeWall(maze, item.id);
 
             if (maze.Children.Count != 0)
             {
@@ -28,6 +38,7 @@ namespace MazeVisualizer
             }
         }
 
+        /* Resetボタンが押されたとき */
         private void resetMaze(object sender, RoutedEventArgs e)
         {
             g.eraseMazeGrid(maze);
@@ -36,6 +47,16 @@ namespace MazeVisualizer
             {
                 maze_generate.IsEnabled = true;
                 maze_reset.IsEnabled = false;
+            }
+        }
+
+        /* MazeGenerationAlgorthmが選択されたとき */
+        private void selectedAlgorithm(object sender, SelectionChangedEventArgs e)
+        {
+            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
+            if (item != null)
+            {
+                maze_generate.IsEnabled = true;
             }
         }
     }
