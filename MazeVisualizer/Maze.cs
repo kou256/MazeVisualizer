@@ -3,12 +3,12 @@
     class Maze
     {
         /* プロパティ */
-        private int grid_height { get; set; }   // 1マスの縦幅
-        private int grid_width { get; set; }    // 1マスの横幅
-        private int grid_row { get; set; }      // 行の数
-        private int grid_column { get; set; }   // 列の数
-        private bool[,] is_wall { get; set; }
-        private bool[,] is_discoverd { get; set; }
+        private int grid_height { get; set; }       // 1マスの縦幅
+        private int grid_width { get; set; }        // 1マスの横幅
+        private int grid_row { get; set; }          // 行の数
+        private int grid_column { get; set; }       // 列の数
+        private bool[,] is_wall { get; set; }       // 壁か？
+        private bool[,] is_discoverd { get; set; }  // 探索済みか？
 
         /* コンストラクタ */
         public Maze(int row, int column)

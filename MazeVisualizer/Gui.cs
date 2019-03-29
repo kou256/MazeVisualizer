@@ -7,9 +7,10 @@ namespace MazeVisualizer
 {
     class Gui
     {
-        Maze m;
-        Rectangle[,] grid;
+        private Maze m;
+        private Rectangle[,] grid;
 
+        /* コンストラクタ */
         public Gui()
         {
         }
@@ -25,7 +26,7 @@ namespace MazeVisualizer
                 for (int j = 0; j < m.Grid_Column; j++)
                 {
                     grid[i, j] = new Rectangle();
-                    grid[i, j].Stroke = Brushes.Black;
+                    grid[i, j].Stroke = Brushes.Gray;
                     if (m.Is_Wall[i, j])
                     {
                         grid[i, j].Fill = Brushes.Black;
@@ -36,10 +37,8 @@ namespace MazeVisualizer
                     }
                     grid[i, j].Height = m.Grid_Height;
                     grid[i, j].Width = m.Grid_Width;
-
                     Canvas.SetTop(grid[i, j], i * (m.Grid_Height - 1));
                     Canvas.SetLeft(grid[i, j], j * (m.Grid_Width - 1));
-
                     target.Children.Add(grid[i, j]);
                 }
             }
@@ -49,6 +48,7 @@ namespace MazeVisualizer
         {
             Random rand = new Random();
 
+            /* 棒倒し法 */
             if (algorthm == 0)
             {
                 for (int y = 2; y < m.Grid_Row - 1; y += 2)

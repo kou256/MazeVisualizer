@@ -15,15 +15,15 @@ namespace MazeVisualizer
             new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"}
         };
 
+        /* コンストラクタ */
         public MainWindow()
         {
             InitializeComponent();
 
             this.DataContext = mga;
-            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
-            
         }
 
+        /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
         {
             g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
@@ -38,6 +38,7 @@ namespace MazeVisualizer
             }
         }
 
+        /* Resetボタンが押されたとき */
         private void resetMaze(object sender, RoutedEventArgs e)
         {
             g.eraseMazeGrid(maze);
@@ -49,6 +50,7 @@ namespace MazeVisualizer
             }
         }
 
+        /* MazeGenerationAlgorthmが選択されたとき */
         private void selectedAlgorithm(object sender, SelectionChangedEventArgs e)
         {
             var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
