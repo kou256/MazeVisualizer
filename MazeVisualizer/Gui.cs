@@ -26,7 +26,7 @@ namespace MazeVisualizer
                 for (int j = 0; j < m.Grid_Column; j++)
                 {
                     grid[i, j] = new Rectangle();
-                    grid[i, j].Stroke = Brushes.Gray;
+                    grid[i, j].Stroke = Brushes.DarkGray;
                     if (m.Is_Wall[i, j])
                     {
                         grid[i, j].Fill = Brushes.Black;
