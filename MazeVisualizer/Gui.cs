@@ -75,17 +75,21 @@ namespace MazeVisualizer
                             int wall_candidate_x = x, wall_candidate_y = y;
                             switch (r)
                             {
+                                // 上
                                 case 0:
-                                    wall_candidate_x--;
-                                    break;
-                                case 1:
                                     wall_candidate_y--;
                                     break;
-                                case 2:
-                                    wall_candidate_x++;
-                                    break;
-                                case 3:
+                                // 下
+                                case 1:
                                     wall_candidate_y++;
+                                    break;
+                                // 左
+                                case 2:
+                                    wall_candidate_x--;
+                                    break;
+                                // 右
+                                case 3:
+                                    wall_candidate_x++;
                                     break;
                             }
 
