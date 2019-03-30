@@ -12,7 +12,8 @@ namespace MazeVisualizer
         Gui g = new Gui();
         ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
         {
-            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"}
+            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"},
+            new MazeGenerationAlgorithm{id = 1, method = "Wall Exntend Method"}
         };
 
         /* コンストラクタ */
