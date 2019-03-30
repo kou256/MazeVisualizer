@@ -1,4 +1,6 @@
-﻿namespace MazeVisualizer
+﻿using System.Collections.Generic;
+
+namespace MazeVisualizer
 {
     class Maze
     {
@@ -9,6 +11,7 @@
         private int grid_column { get; set; }       // 列の数
         private bool[,] is_wall { get; set; }       // 壁か？
         private bool[,] is_discoverd { get; set; }  // 探索済みか？
+        public List<Pillar> pillar_coordinate;
 
         /* コンストラクタ */
         public Maze(int row, int column)
@@ -19,6 +22,7 @@
             grid_column = column;
             is_wall = new bool[grid_row, grid_column];
             is_discoverd = new bool[grid_row, grid_column];
+            pillar_coordinate = new List<Pillar>();
 
             for (int i = 0; i < grid_row; i++)
             {
@@ -29,6 +33,10 @@
                         is_wall[i, j] = true;
                         is_discoverd[i, j] = true;
                     }
+                    else if (i % 2 == 0 && j % 2 == 0)
+                    {
+                        pillar_coordinate.Add(new Pillar(j, i));
+                    }
                     else
                     {
                         is_wall[i, j] = false;
@@ -37,6 +45,7 @@
                 }
             }
         }
+
 
         /* プロパティのアクセサ */
         public int Grid_Height
@@ -108,6 +117,18 @@
             set
             {
                 is_discoverd = value;
+            }
+        }
+
+        public struct Pillar
+        {
+            public int X;
+            public int Y;
+
+            public Pillar(int x, int y)
+            {
+                X = x;
+                Y = y;
             }
         }
     }
