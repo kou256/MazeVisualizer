@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace MazeVisualizer
 {
@@ -102,6 +103,85 @@ namespace MazeVisualizer
                                 break;
                             }
                         }
+                    }
+                }
+            }
+            else if (algorthm == 1)
+            {
+                Stack<Maze.Pillar> prev_pillar = new Stack<Maze.Pillar>();
+
+                while (m.pillar_coordinate.Count != 0)
+                {
+                    int index = rand.Next(m.pillar_coordinate.Count);
+                    Maze.Pillar pillar = m.pillar_coordinate[index];
+                    int x = pillar.X, y = pillar.Y;
+                    m.pillar_coordinate.RemoveAt(index);
+
+                    if (!m.Is_Wall[y, x])
+                    {
+                        grid[y, x].Fill = Brushes.Black;
+
+                        m.Is_Wall[y, x] = true;
+                        m.Is_Discoverd[y, x] = true;
+
+                        while (true)
+                        {
+                            int r = rand.Next(0, 4);
+                            int x_base_distance = 0, y_base_distance = 0;
+
+                            switch (r)
+                            {
+                                case 0:
+                                    y_base_distance = -1;
+                                    break;
+                                case 1:
+                                    y_base_distance = 1;
+                                    break;
+                                case 2:
+                                    x_base_distance = -1;
+                                    break;
+                                case 3:
+                                    x_base_distance = 1;
+                                    break;
+                            }
+
+                            if (!m.Is_Wall[y + 2 * y_base_distance, x + 2 * x_base_distance])
+                            {
+                                for (int i = 1; i <= 2; i++)
+                                {
+                                    m.Is_Wall[y + i * y_base_distance, x + i * x_base_distance] = true;
+                                    m.Is_Discoverd[y + i * y_base_distance, x + i * x_base_distance] = true;
+                                    grid[y + i * y_base_distance, x + i * x_base_distance].Fill = Brushes.Black;
+                                }
+                                prev_pillar.Push(new Maze.Pillar(x, y));
+                                x += 2 * x_base_distance;
+                                y += 2 * y_base_distance;
+                            }
+                            else
+                            {
+                                if (!prev_pillar.Contains(new Maze.Pillar(x + 2 * x_base_distance, y + 2 * y_base_distance)))
+                                {
+                                    m.Is_Wall[y + y_base_distance, x + x_base_distance] = true;
+                                    m.Is_Discoverd[y + y_base_distance, x + x_base_distance] = true;
+                                    grid[y + y_base_distance, x + x_base_distance].Fill = Brushes.Black;
+                                    break;
+                                }
+                                else
+                                {
+                                    if (prev_pillar.Contains(new Maze.Pillar(x, y - 2)) &&
+                                        prev_pillar.Contains(new Maze.Pillar(x, y + 2)) &&
+                                        prev_pillar.Contains(new Maze.Pillar(x - 2, y)) &&
+                                        prev_pillar.Contains(new Maze.Pillar(x + 2, y)))
+                                    {
+                                        Maze.Pillar coordinate = prev_pillar.Pop();
+                                        x = coordinate.X;
+                                        y = coordinate.Y;
+                                    }
+                                }
+                            }
+                        }
+
+                        prev_pillar.Clear();
                     }
                 }
             }

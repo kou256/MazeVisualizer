@@ -12,7 +12,8 @@ namespace MazeVisualizer
         Gui g = new Gui();
         ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
         {
-            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"}
+            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"},
+            new MazeGenerationAlgorithm{id = 1, method = "Wall Exntend Method"}
         };
 
         /* コンストラクタ */
@@ -35,6 +36,7 @@ namespace MazeVisualizer
             {
                 maze_generate.IsEnabled = false;
                 maze_reset.IsEnabled = true;
+                generation_algorithm_list.IsEnabled = false;
             }
         }
 
@@ -47,6 +49,7 @@ namespace MazeVisualizer
             {
                 maze_generate.IsEnabled = true;
                 maze_reset.IsEnabled = false;
+                generation_algorithm_list.IsEnabled = true;
             }
         }
 
