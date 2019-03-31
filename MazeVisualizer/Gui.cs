@@ -124,7 +124,6 @@ namespace MazeVisualizer
                         m.Is_Wall[y, x] = true;
                         m.Is_Discoverd[y, x] = true;
 
-
                         while (true)
                         {
                             int r = rand.Next(0, 4);
@@ -145,8 +144,6 @@ namespace MazeVisualizer
                                     x_base_distance = 1;
                                     break;
                             }
-
-
 
                             if (!m.Is_Wall[y + 2 * y_base_distance, x + 2 * x_base_distance])
                             {

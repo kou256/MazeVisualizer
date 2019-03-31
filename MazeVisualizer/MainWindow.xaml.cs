@@ -36,6 +36,7 @@ namespace MazeVisualizer
             {
                 maze_generate.IsEnabled = false;
                 maze_reset.IsEnabled = true;
+                generation_algorithm_list.IsEnabled = false;
             }
         }
 
@@ -48,6 +49,7 @@ namespace MazeVisualizer
             {
                 maze_generate.IsEnabled = true;
                 maze_reset.IsEnabled = false;
+                generation_algorithm_list.IsEnabled = true;
             }
         }
 
