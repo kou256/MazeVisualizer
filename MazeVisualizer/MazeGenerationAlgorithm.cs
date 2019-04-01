@@ -81,19 +81,19 @@ namespace MazeVisualizer
                     while (true)
                     {
                         List<Direction> wall_candidates_direction = new List<Direction>();
-                        if (!maze.IsWall[y - 2, x] && !prev_pillar_coord.Contains(new Maze.Pillar { X = x, Y = y - 2 }))
+                        if (!prev_pillar_coord.Contains(new Maze.Pillar { X = x, Y = y - 2 }))
                         {
                             wall_candidates_direction.Add(Direction.UP);
                         }
-                        if (!maze.IsWall[y + 2, x] && !prev_pillar_coord.Contains(new Maze.Pillar { X = x, Y = y + 2 }))
+                        if (!prev_pillar_coord.Contains(new Maze.Pillar { X = x, Y = y + 2 }))
                         {
                             wall_candidates_direction.Add(Direction.DOWN);
                         }
-                        if (!maze.IsWall[y, x - 2] && !prev_pillar_coord.Contains(new Maze.Pillar { X = x - 2, Y = y }))
+                        if (!prev_pillar_coord.Contains(new Maze.Pillar { X = x - 2, Y = y }))
                         {
                             wall_candidates_direction.Add(Direction.LEFT);
                         }
-                        if (!maze.IsWall[y, x + 2] && !prev_pillar_coord.Contains(new Maze.Pillar { X = x + 2, Y = y }))
+                        if (!prev_pillar_coord.Contains(new Maze.Pillar { X = x + 2, Y = y }))
                         {
                             wall_candidates_direction.Add(Direction.RIGHT);
                         }
@@ -125,9 +125,10 @@ namespace MazeVisualizer
                                     break;
                             }
 
-                            if (!prev_pillar_coord.Contains(new Maze.Pillar { X = x + 2 * x_moving_distance, Y = y + 2 * y_moving_distance }))
+                            if (maze.IsWall[y + 2 * y_moving_distance, x + 2 * x_moving_distance])
                             {
                                 maze.IsWall[y + y_moving_distance, x + x_moving_distance] = true;
+                                prev_pillar_coord.Clear();
 
                                 break;
                             }
@@ -144,7 +145,6 @@ namespace MazeVisualizer
                             }
                         }
                     }
-                    prev_pillar_coord.Clear();
                 }
             }
         }
