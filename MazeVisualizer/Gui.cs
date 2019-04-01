@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 
-namespace MazeVisualizer
+namespace Maze.Visualizer
 {
     class Gui
     {

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using static MazeVisualizer.MazeGenerationAlgorithm;
 
-namespace MazeVisualizer
+namespace Maze.Visualizer
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
