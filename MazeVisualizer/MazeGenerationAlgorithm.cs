@@ -1,4 +1,4 @@
-﻿namespace Maze.Visualizer
+﻿namespace MazeVisualizer
 {
     class MazeGenerationAlgorithm
     {

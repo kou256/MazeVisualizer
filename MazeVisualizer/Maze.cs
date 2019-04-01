@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Maze.Visualizer
+namespace MazeVisualizer
 {
     class Maze
     {
