@@ -13,7 +13,8 @@ namespace MazeVisualizer
         ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
         {
             new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"},
-            new MazeGenerationAlgorithm{id = 1, method = "Wall Exntend Method"}
+            new MazeGenerationAlgorithm{id = 1, method = "Wall Exntend Method"},
+            new MazeGenerationAlgorithm{id = 2, method = "Digging Method"}
         };
 
         /* コンストラクタ */

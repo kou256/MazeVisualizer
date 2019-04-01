@@ -184,6 +184,96 @@ namespace MazeVisualizer
                         prev_pillar.Clear();
                     }
                 }
+
+            }
+            else if (algorthm == 2)
+            {
+                List<Cell> coordinate = new List<Cell>();
+                List<Cell> astil = new List<Cell>();
+                for (int i = 0; i < m.Grid_Row; i++)
+                {
+                    for (int j = 0; j < m.Grid_Column; j++)
+                    {
+                        grid[i, j].Fill = Brushes.Black;
+                        m.Is_Wall[i, j] = true;
+                        m.Is_Discoverd[i, j] = true;
+
+                        if (i % 2 == 1 && j % 2 == 1)
+                        {
+                            coordinate.Add(new Cell(j, i));
+                        }
+                    }
+                }
+
+                int x = 1, y = 1;
+                coordinate.Remove(new Cell(x, y));
+                astil.Add(new Cell(y, x));
+
+                while (coordinate.Count > 0)
+                {
+                    int x_base_distance = 0, y_base_distance = 0;
+                    List<Direction> directions = new List<Direction>();
+
+                    if (y - 2 > 0 && m.Is_Wall[y - 2, x])
+                    {
+                        directions.Add(Direction.Up);
+                    }
+                    if (y + 2 < m.Grid_Row && m.Is_Wall[y + 2, x])
+                    {
+                        directions.Add(Direction.Down);
+                    }
+                    if (x - 2 > 0 && m.Is_Wall[y, x - 2])
+                    {
+                        directions.Add(Direction.Left);
+                    }
+                    if (x + 2 < m.Grid_Column && m.Is_Wall[y, x + 2])
+                    {
+                        directions.Add(Direction.Right);
+                    }
+
+                    if (directions.Count > 0)
+                    {
+                        var dir_index = rand.Next(directions.Count);
+                        switch (directions[dir_index])
+                        {
+                            case Direction.Up:
+                                x_base_distance = 0;
+                                y_base_distance = -1;
+                                break;
+                            case Direction.Down:
+                                x_base_distance = 0;
+                                y_base_distance = 1;
+                                break;
+                            case Direction.Left:
+                                x_base_distance = -1;
+                                y_base_distance = 0;
+                                break;
+                            case Direction.Right:
+                                x_base_distance = 1;
+                                y_base_distance = 0;
+                                break;
+                        }
+
+                        for (int k = 0; k < 3; k++)
+                        {
+                            grid[y + k * y_base_distance, x + k * x_base_distance].Fill = Brushes.White;
+                            m.Is_Wall[y + k * y_base_distance, x + k * x_base_distance] = false;
+                            m.Is_Discoverd[y + k * y_base_distance, x + k * x_base_distance] = false;
+                        }
+
+                        astil.Add(new Cell(x, y));
+                        x += 2 * x_base_distance;
+                        y += 2 * y_base_distance;
+                        coordinate.Remove(new Cell(x, y));
+                    }
+                    else if (directions.Count == 0)
+                    {
+                        astil.Remove(new Cell(x, y));
+                        var new_coordinate = astil[rand.Next(astil.Count)];
+                        x = new_coordinate.X;
+                        y = new_coordinate.Y;
+                    }
+                }   
             }
         }
 
@@ -191,6 +281,26 @@ namespace MazeVisualizer
         public void eraseMazeGrid(Canvas target)
         {
             target.Children.Clear();
+        }
+
+        private struct Cell
+        {
+            public int X;
+            public int Y;
+
+            public Cell(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
+        }
+
+        private enum Direction
+        {
+            Up = 0,
+            Down = 1,
+            Left = 2,
+            Right = 3,
         }
     }
 }
