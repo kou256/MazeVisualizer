@@ -31,12 +31,7 @@ namespace MazeVisualizer
                         x == 0 || x == GridColumn - 1)
                     {
                         IsWall[y, x] = true;
-                    }
-                    else if (pillar_exists && y % 2 == 0 && x % 2 == 0)
-                    {
-                        IsWall[y, x] = true;
-                        PillarCoordinate.Add(new Pillar{ X = x, Y = y });
-                    }
+                    } 
                     else
                     {
                         if (aisle_exists)
@@ -47,6 +42,11 @@ namespace MazeVisualizer
                         {
                             IsWall[y, x] = true;
                         }
+                    }
+
+                    if (pillar_exists && y % 2 == 0 && x % 2 == 0)
+                    {
+                        PillarCoordinate.Add(new Pillar { X = x, Y = y });
                     }
                 }
             }
