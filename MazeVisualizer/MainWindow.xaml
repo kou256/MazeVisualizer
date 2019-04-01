@@ -25,8 +25,8 @@
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Canvas.Left="10" Canvas.Top="96">
-                    <Label Content="Maze Generation Algorithm" Canvas.Left="13" Canvas.Top="108"/>
-                    <ComboBox x:Name="generation_algorithm_list" RenderTransformOrigin="0.5,0.5" Width="202" Canvas.Left="3" Canvas.Top="133" ItemsSource="{Binding}" SelectedValuePath="id" DisplayMemberPath="method" SelectionChanged="selectedAlgorithm"/>
+                    <Label Content="迷路生成アルゴリズム" Canvas.Left="13" Canvas.Top="108"/>
+                    <ComboBox x:Name="generation_algorithm_list" RenderTransformOrigin="0.5,0.5" Width="202" Canvas.Left="3" Canvas.Top="133" ItemsSource="{Binding}" SelectedValuePath="AlgorithmId" DisplayMemberPath="AlgorithmName" SelectionChanged="selectedAlgorithm"/>
                 </StackPanel>
             </Canvas>
         </Border>

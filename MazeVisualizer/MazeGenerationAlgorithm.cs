@@ -2,34 +2,18 @@
 {
     class MazeGenerationAlgorithm
     {
-        public int id { get; set; }
-        public string method { get; set; }
+        public Id AlgorithmId { get; set; }
+        public string AlgorithmName { get; set; }
 
         public MazeGenerationAlgorithm()
         {
         }
-        public int Id
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
-        }
 
-        public string Method
+        public enum Id
         {
-            get
-            {
-                return method;
-            }
-            set
-            {
-                method = value;
-            }
+            sdm = 0,
+            wem = 0,
+            dm  = 0,
         }
     }
 }

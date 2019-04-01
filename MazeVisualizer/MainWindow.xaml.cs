@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using static MazeVisualizer.MazeGenerationAlgorithm;
 
 namespace MazeVisualizer
 {
@@ -12,9 +13,9 @@ namespace MazeVisualizer
         Gui g = new Gui();
         ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
         {
-            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"},
-            new MazeGenerationAlgorithm{id = 1, method = "Wall Exntend Method"},
-            new MazeGenerationAlgorithm{id = 2, method = "Digging Method"}
+            new MazeGenerationAlgorithm{AlgorithmId = Id.sdm, AlgorithmName = "棒倒し法"},
+            new MazeGenerationAlgorithm{AlgorithmId = Id.wem, AlgorithmName = "壁伸ばし法"},
+            new MazeGenerationAlgorithm{AlgorithmId = Id.dm,  AlgorithmName = "穴掘り法"}
         };
 
         /* コンストラクタ */
@@ -31,7 +32,7 @@ namespace MazeVisualizer
             g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
 
             var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
-            g.drawMazeWall(maze, item.id);
+            g.drawMazeWall(maze, (int)item.AlgorithmId);
 
             if (maze.Children.Count != 0)
             {
