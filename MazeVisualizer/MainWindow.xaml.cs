@@ -11,11 +11,12 @@ namespace MazeVisualizer
     public partial class MainWindow : Window
     {
         Gui g = new Gui();
+        Maze m;
         ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
         {
-            new MazeGenerationAlgorithm{AlgorithmId = Id.sdm, AlgorithmName = "棒倒し法"},
-            new MazeGenerationAlgorithm{AlgorithmId = Id.wem, AlgorithmName = "壁伸ばし法"},
-            new MazeGenerationAlgorithm{AlgorithmId = Id.dm,  AlgorithmName = "穴掘り法"}
+            new MazeGenerationAlgorithm{AlgorithmId = Id.SDM, AlgorithmName = "棒倒し法"},
+            new MazeGenerationAlgorithm{AlgorithmId = Id.WEM, AlgorithmName = "壁伸ばし法"},
+            new MazeGenerationAlgorithm{AlgorithmId = Id.DM,  AlgorithmName = "穴掘り法"}
         };
 
         /* コンストラクタ */

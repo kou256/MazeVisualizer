@@ -5,131 +5,57 @@ namespace MazeVisualizer
     class Maze
     {
         /* プロパティ */
-        private int grid_height { get; set; }       // 1マスの縦幅
-        private int grid_width { get; set; }        // 1マスの横幅
-        private int grid_row { get; set; }          // 行の数
-        private int grid_column { get; set; }       // 列の数
-        private bool[,] is_wall { get; set; }       // 壁か？
-        private bool[,] is_discoverd { get; set; }  // 探索済みか？
-        public List<Pillar> pillar_coordinate;
+        public int GridHeight { get; set; } = 16;
+        public int GridWidth { get; set; } = 16;
+        public int GridRow { get; set; }
+        public int GridColumn { get; set; }
+        public bool[,] IsWall { get; set; }
+        public bool[,] IsDiscoverd { get; set; }
+        public List<Pillar> PillarCoordinate;
 
         /* コンストラクタ */
-        public Maze(int row, int column)
+        public Maze()
         {
-            grid_height = 16;
-            grid_width = 16;
-            grid_row = row;
-            grid_column = column;
-            is_wall = new bool[grid_row, grid_column];
-            is_discoverd = new bool[grid_row, grid_column];
-            pillar_coordinate = new List<Pillar>();
+            IsWall = new bool[GridRow, GridColumn];
+            IsDiscoverd = new bool[GridRow, GridColumn];
+            PillarCoordinate = new List<Pillar>();
+        }
 
-            for (int i = 0; i < grid_row; i++)
+        public void InitializeMaze(bool aisle_exists, bool pillar_exists)
+        {
+            for (int y = 0; y < GridRow; y++)
             {
-                for (int j = 0; j < grid_column; j++)
+                for (int x = 0; x < GridColumn; x++)
                 {
-                    if (i == 0 || i == row - 1 || j == 0 || j == column - 1)
+                    if (y == 0 || y == GridRow - 1 ||
+                        x == 0 || x == GridColumn - 1)
                     {
-                        is_wall[i, j] = true;
-                        is_discoverd[i, j] = true;
+                        IsWall[y, x] = true;
                     }
-                    else if (i % 2 == 0 && j % 2 == 0)
+                    else if (pillar_exists && y % 2 == 0 && x % 2 == 0)
                     {
-                        pillar_coordinate.Add(new Pillar(j, i));
+                        IsWall[y, x] = true;
+                        PillarCoordinate.Add(new Pillar{ X = x, Y = y });
                     }
                     else
                     {
-                        is_wall[i, j] = false;
-                        is_discoverd[i, j] = false;
+                        if (aisle_exists)
+                        {
+                            IsWall[y, x] = false;
+                        }
+                        else
+                        {
+                            IsWall[y, x] = true;
+                        }
                     }
                 }
             }
         }
 
-
-        /* プロパティのアクセサ */
-        public int Grid_Height
-        {
-            get
-            {
-                return grid_height;
-            }
-            set
-            {
-                grid_height = value;
-            }
-        }
-
-        public int Grid_Width
-        {
-            get
-            {
-                return grid_width;
-            }
-            set
-            {
-                grid_width = value;
-            }
-        }
-
-        public int Grid_Row
-        {
-            get
-            {
-                return grid_row;
-            }
-            set
-            {
-                grid_row = value;
-            }
-        }
-
-        public int Grid_Column
-        {
-            get
-            {
-                return grid_column;
-            }
-            set
-            {
-                grid_column = value;
-            }
-        }
-
-        public bool[,] Is_Wall
-        {
-            get
-            {
-                return is_wall;
-            }
-            set
-            {
-                is_wall = value;
-            }
-        }
-
-        public bool[,] Is_Discoverd
-        {
-            get
-            {
-                return is_discoverd;
-            }
-            set
-            {
-                is_discoverd = value;
-            }
-        }
-
         public struct Pillar
         {
-            public int X;
-            public int Y;
-
-            public Pillar(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
+            public int X { get; set; }
+            public int Y { get; set; }
         }
     }
 }
