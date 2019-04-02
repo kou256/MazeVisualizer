@@ -11,14 +11,14 @@ namespace MazeVisualizer
         public int GridColumn { get; set; }
         public bool[,] IsWall { get; set; }
         public bool[,] IsDiscoverd { get; set; }
-        public List<Pillar> PillarCoordinate;
+        public List<Coordinate> PillarCoordinate;
 
         /* コンストラクタ */
         public Maze()
         {
             IsWall = new bool[GridRow, GridColumn];
             IsDiscoverd = new bool[GridRow, GridColumn];
-            PillarCoordinate = new List<Pillar>();
+            PillarCoordinate = new List<Coordinate>();
         }
 
         public void InitializeMaze(bool aisle_exists, bool pillar_exists)
@@ -46,13 +46,13 @@ namespace MazeVisualizer
 
                     if (pillar_exists && y % 2 == 0 && x % 2 == 0)
                     {
-                        PillarCoordinate.Add(new Pillar { X = x, Y = y });
+                        PillarCoordinate.Add(new Coordinate { X = x, Y = y });
                     }
                 }
             }
         }
 
-        public struct Pillar
+        public struct Coordinate
         {
             public int X { get; set; }
             public int Y { get; set; }
