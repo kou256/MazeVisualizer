@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MazeVisualizer
+﻿namespace MazeVisualizer
 {
     class Maze
     {
@@ -12,16 +10,15 @@ namespace MazeVisualizer
         public bool[,] IsWall { get; set; }
         public bool[,] IsDiscoverd { get; set; }
 
-
         /* コンストラクタ */
         public Maze()
         {
-            IsWall = new bool[GridRow, GridColumn];
-            IsDiscoverd = new bool[GridRow, GridColumn];
         }
 
         public void InitializeMaze(bool aisle_exists)
         {
+            IsWall = new bool[GridRow, GridColumn];
+            IsDiscoverd = new bool[GridRow, GridColumn];
             for (int y = 0; y < GridRow; y++)
             {
                 for (int x = 0; x < GridColumn; x++)

@@ -12,6 +12,7 @@ namespace MazeVisualizer
     {
         Gui g = new Gui();
         Maze m;
+        MazeGenerationAlgorithm a = new MazeGenerationAlgorithm();
         ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
         {
             new MazeGenerationAlgorithm{AlgorithmId = Id.SDM, AlgorithmName = "棒倒し法"},
@@ -30,10 +31,22 @@ namespace MazeVisualizer
         /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
         {
-            g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
-
+            m = new Maze { GridRow = 2 * (int)grid_count.Value + 1, GridColumn = 2 * (int)grid_count.Value + 1 };
             var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
-            g.drawMazeWall(maze, (int)item.AlgorithmId);
+            if (item.AlgorithmId == Id.SDM)
+            {
+                a.StickDownMethod(m);
+            }
+            else if (item.AlgorithmId == Id.WEM)
+            {
+                a.WallExtendMethod(m);
+            }
+            else if (item.AlgorithmId == Id.DM)
+            {
+                a.DiggingMethod(m);
+            }
+            g.drawMazeGrid(maze, m);
+
 
             if (maze.Children.Count != 0)
             {

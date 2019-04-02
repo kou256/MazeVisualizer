@@ -19,9 +19,9 @@ namespace MazeVisualizer
             List<Maze.Coordinate> pillar_coord = new List<Maze.Coordinate>();
 
             maze.InitializeMaze(true);
-            for (int i = 0; i < maze.GridRow; i++)
+            for (int i = 2; i < maze.GridRow - 2; i++)
             {
-                for (int j = 0; j < maze.GridColumn; j++)
+                for (int j = 2; j < maze.GridColumn - 2; j++)
                 {
                     if (i % 2 == 0 && j % 2 == 0)
                     {
@@ -38,33 +38,33 @@ namespace MazeVisualizer
                 {
                     wall_candidates_direction.Add(Direction.UP);
                 }
-                else if (!maze.IsWall[coord.Y + 1, coord.X])
+                if (!maze.IsWall[coord.Y + 1, coord.X])
                 {
                     wall_candidates_direction.Add(Direction.DOWN);
                 }
-                else if (!maze.IsWall[coord.Y, coord.X - 1])
+                if (!maze.IsWall[coord.Y, coord.X - 1])
                 {
                     wall_candidates_direction.Add(Direction.LEFT);
                 }
-                else if (!maze.IsWall[coord.Y, coord.X + 1])
+                if (!maze.IsWall[coord.Y, coord.X + 1])
                 {
                     wall_candidates_direction.Add(Direction.RIGHT);
                 }
 
                 int x_moving_distance = 0, y_moving_distance = 0;
                 int wall_direction = rand.Next(wall_candidates_direction.Count);
-                switch (wall_direction)
+                switch (wall_candidates_direction[wall_direction])
                 {
-                    case 0:
+                    case Direction.UP:
                         y_moving_distance = -1;
                         break;
-                    case 1:
+                    case Direction.DOWN:
                         y_moving_distance = 1;
                         break;
-                    case 2:
+                    case Direction.LEFT:
                         x_moving_distance = -1;
                         break;
-                    case 3:
+                    case Direction.RIGHT:
                         x_moving_distance = 1;
                         break;
                 }
@@ -81,9 +81,9 @@ namespace MazeVisualizer
             Stack<Maze.Coordinate> prev_pillar_coord = new Stack<Maze.Coordinate>();
 
             maze.InitializeMaze(true);
-            for (int i = 0; i < maze.GridRow; i++)
+            for (int i = 2; i < maze.GridRow - 2; i++)
             {
-                for (int j = 0; j < maze.GridColumn; j++)
+                for (int j = 2; j < maze.GridColumn - 2; j++)
                 {
                     if (i % 2 == 0 && j % 2 == 0)
                     {
@@ -132,19 +132,18 @@ namespace MazeVisualizer
                         {
                             int x_moving_distance = 0, y_moving_distance = 0;
                             int wall_direction = rand.Next(wall_candidates_direction.Count);
-
-                            switch (wall_direction)
+                            switch (wall_candidates_direction[wall_direction])
                             {
-                                case 0:
+                                case Direction.UP:
                                     y_moving_distance = -1;
                                     break;
-                                case 1:
+                                case Direction.DOWN:
                                     y_moving_distance = 1;
                                     break;
-                                case 2:
+                                case Direction.LEFT:
                                     x_moving_distance = -1;
                                     break;
-                                case 3:
+                                case Direction.RIGHT:
                                     x_moving_distance = 1;
                                     break;
                             }
@@ -225,7 +224,6 @@ namespace MazeVisualizer
                 }
                 else
                 {
-
                     int x_moving_distance = 0, y_moving_distance = 0;
                     var wall_direction = rand.Next(wall_candidates_direction.Count);
                     switch (wall_candidates_direction[wall_direction])
@@ -267,8 +265,8 @@ namespace MazeVisualizer
         public enum Id
         {
             SDM = 0,
-            WEM = 0,
-            DM = 0,
+            WEM = 1,
+            DM = 2,
         }
     }
 }
