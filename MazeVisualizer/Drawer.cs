@@ -4,19 +4,12 @@ using System.Windows.Shapes;
 
 namespace MazeVisualizer
 {
-    class Gui
+    class Drawer
     {
-        private Rectangle[,] grid;
-
-        /* コンストラクタ */
-        public Gui()
-        {
-        }
-
         /* 迷路のマス目を描画する */
-        public void drawMazeGrid(Canvas target, Maze maze)
+        public static void drawMaze(Canvas target, Maze maze)
         {
-            grid = new Rectangle[maze.GridRow, maze.GridColumn];
+            Rectangle[,] grid = new Rectangle[maze.GridRow, maze.GridColumn];
 
             for (int y = 0; y < maze.GridRow; y++)
             {
@@ -28,9 +21,13 @@ namespace MazeVisualizer
                     {
                         grid[y, x].Fill = Brushes.Black;
                     }
-                    else
+                    else if (y % 2 == 1 && x % 2 == 1)
                     {
                         grid[y, x].Fill = Brushes.White;
+                    }
+                    else
+                    {
+                        grid[y, x].Fill = Brushes.LightGray;
                     }
                     grid[y, x].Height = maze.GridHeight;
                     grid[y, x].Width = maze.GridWidth;
@@ -42,7 +39,7 @@ namespace MazeVisualizer
         }
 
         /* 迷路のマス目を削除する */
-        public void eraseMazeGrid(Canvas target)
+        public static void eraseMaze(Canvas target)
         {
             target.Children.Clear();
         }

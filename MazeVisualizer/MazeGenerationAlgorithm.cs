@@ -5,15 +5,8 @@ namespace MazeVisualizer
 {
     class MazeGenerationAlgorithm
     {
-        public Id AlgorithmId { get; set; }
-        public string AlgorithmName { get; set; }
-
-        public MazeGenerationAlgorithm()
-        {
-        }
-
         // 棒倒し法
-        public void StickDownMethod(Maze maze)
+        public static void StickDownMethod(Maze maze)
         {
             Random rand = new Random();
             List<Maze.Coordinate> pillar_coord = new List<Maze.Coordinate>();
@@ -74,7 +67,7 @@ namespace MazeVisualizer
         }
 
         // 壁伸ばし法
-        public void WallExtendMethod(Maze maze)
+        public static void WallExtendMethod(Maze maze)
         {
             Random rand = new Random();
             List<Maze.Coordinate> pillar_coord = new List<Maze.Coordinate>();
@@ -172,7 +165,8 @@ namespace MazeVisualizer
             }
         }
 
-        public void DiggingMethod(Maze maze)
+        // 穴掘り法
+        public static void DiggingMethod(Maze maze)
         {
             Random rand = new Random();
             List<Maze.Coordinate> cell_coord = new List<Maze.Coordinate>();
@@ -254,19 +248,13 @@ namespace MazeVisualizer
             }
         }
 
+        // 方向の定義
         private enum Direction
         {
             UP = 0,
             DOWN = 1,
             LEFT = 2,
             RIGHT = 3,
-        }
-
-        public enum Id
-        {
-            SDM = 0,
-            WEM = 1,
-            DM = 2,
-        }
+        } 
     }
 }

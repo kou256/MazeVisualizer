@@ -10,11 +10,6 @@
         public bool[,] IsWall { get; set; }
         public bool[,] IsDiscoverd { get; set; }
 
-        /* コンストラクタ */
-        public Maze()
-        {
-        }
-
         public void InitializeMaze(bool aisle_exists)
         {
             IsWall = new bool[GridRow, GridColumn];
