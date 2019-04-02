@@ -5,28 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeVisualizer"
         mc:Ignorable="d"
-        Title="MazeVisualizer" Height="559" Width="791">
-    <Canvas HorizontalAlignment="Left" Width="772">
-        <Border Name="maze_area" BorderBrush="#FF939090" BorderThickness="1" Height="504" Width="504" Margin="8,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        Title="MazeVisualizer" Height="608" Width="861">
+    <Canvas HorizontalAlignment="Left" Width="569">
+        <Border Name="maze_area" BorderBrush="#FF939090" BorderThickness="1" Height="553" Width="553" Margin="8,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Canvas Name="maze_canvas" Margin="3"/>
         </Border>
-        <Border Name="gui_area" Height="510" Width="228" Canvas.Left="534" BorderBrush="#FF939090" VerticalAlignment="Top" Canvas.Top="8">
+        <Border Name="gui_area" Height="553" Width="228" Canvas.Left="569" BorderBrush="#FF939090" VerticalAlignment="Top" Canvas.Top="8">
             <Canvas Name="gui_canvas" Margin="3">
-                <StackPanel Canvas.Left="10" Width="202" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="81">
+                <StackPanel Canvas.Left="10" Width="202" HorizontalAlignment="Left" VerticalAlignment="Top" Height="81">
                     <Label Content="マス目の数"/>
-                    <Slider x:Name="cell_count" LargeChange="1" Maximum="16" SmallChange="1" Minimum="2" TickPlacement="BottomRight" IsSnapToTickEnabled="true" Value="8"/>
+                    <Slider x:Name="cell_count" LargeChange="1" Maximum="32" SmallChange="1" Minimum="2" TickPlacement="BottomRight" IsSnapToTickEnabled="true" Value="16"/>
                     <TextBlock Text="{Binding Value, ElementName=cell_count}"/>
                 </StackPanel>
                 <StackPanel/>
-                <StackPanel Height="27" Canvas.Left="10" Canvas.Top="476" Width="202" VerticalAlignment="Bottom" Margin="0,0,0,3">
+                <StackPanel Canvas.Left="10" Canvas.Top="96">
+                    <Label Content="迷路生成アルゴリズム" Canvas.Left="13" Canvas.Top="108"/>
+                    <ComboBox x:Name="generation_algorithm_box" RenderTransformOrigin="0.5,0.5" Width="202" Canvas.Left="3" Canvas.Top="133" ItemsSource="{Binding}" SelectedValuePath="AlgorithmId" DisplayMemberPath="AlgorithmName" SelectionChanged="selectedAlgorithm"/>
+                </StackPanel>
+                <StackPanel Height="27" Canvas.Left="10" Canvas.Top="520" Width="202" VerticalAlignment="Bottom">
                     <DockPanel Height="25" LastChildFill="False" Canvas.Left="558" Canvas.Top="451" Width="200" Margin="1,0" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Button x:Name="maze_generate_button" Content="生成" Click="generateMaze" IsEnabled="False" Margin="2" Width="96" Height="21"/>
                         <Button x:Name="maze_reset_button" Content="消去" Click="resetMaze" IsEnabled="False" Margin="2" Width="96" Height="21"/>
                     </DockPanel>
-                </StackPanel>
-                <StackPanel Canvas.Left="10" Canvas.Top="96">
-                    <Label Content="迷路生成アルゴリズム" Canvas.Left="13" Canvas.Top="108"/>
-                    <ComboBox x:Name="generation_algorithm_box" RenderTransformOrigin="0.5,0.5" Width="202" Canvas.Left="3" Canvas.Top="133" ItemsSource="{Binding}" SelectedValuePath="AlgorithmId" DisplayMemberPath="AlgorithmName" SelectionChanged="selectedAlgorithm"/>
                 </StackPanel>
             </Canvas>
         </Border>
