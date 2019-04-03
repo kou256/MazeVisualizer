@@ -1,6 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using static MazeVisualizer.Drawer;
+using static MazeVisualizer.MazeGenerationAlgorithm;
+using static MazeVisualizer.AlgorithmList;
 
 namespace MazeVisualizer
 {
@@ -9,58 +12,69 @@ namespace MazeVisualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        Gui g = new Gui();
-        ObservableCollection<MazeGenerationAlgorithm> mga = new ObservableCollection<MazeGenerationAlgorithm>()
+        Maze maze;
+        ObservableCollection<AlgorithmList> item_list = new ObservableCollection<AlgorithmList>()
         {
-            new MazeGenerationAlgorithm{id = 0, method = "Stick Down Method"},
-            new MazeGenerationAlgorithm{id = 1, method = "Wall Exntend Method"},
-            new MazeGenerationAlgorithm{id = 2, method = "Digging Method"}
+            new AlgorithmList{AlgorithmId = Id.SDM, AlgorithmName = "棒倒し法"},
+            new AlgorithmList{AlgorithmId = Id.WEM, AlgorithmName = "壁伸ばし法"},
+            new AlgorithmList{AlgorithmId = Id.DM,  AlgorithmName = "穴掘り法"}
         };
 
-        /* コンストラクタ */
+        /* ComboBoxに項目を追加 */
         public MainWindow()
         {
             InitializeComponent();
 
-            this.DataContext = mga;
+            this.DataContext = item_list;
         }
 
         /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
         {
-            g.drawMazeGrid(maze, 2 * (int)grid_count.Value + 1, 2 * (int)grid_count.Value + 1);
-
-            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
-            g.drawMazeWall(maze, item.id);
-
-            if (maze.Children.Count != 0)
+            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+            var item = generation_algorithm_box.SelectedItem as AlgorithmList;
+            if (item.AlgorithmId == Id.SDM)
             {
-                maze_generate.IsEnabled = false;
-                maze_reset.IsEnabled = true;
-                generation_algorithm_list.IsEnabled = false;
+                StickDownMethod(maze);
+            }
+            else if (item.AlgorithmId == Id.WEM)
+            {
+                WallExtendMethod(maze);
+            }
+            else if (item.AlgorithmId == Id.DM)
+            {
+                DiggingMethod(maze);
+            }
+            drawMaze(maze_canvas, maze);
+
+            if (maze_canvas.Children.Count != 0)
+            {
+                maze_generate_button.IsEnabled = false;
+                maze_reset_button.IsEnabled = true;
+                generation_algorithm_box.IsEnabled = false;
             }
         }
 
         /* Resetボタンが押されたとき */
         private void resetMaze(object sender, RoutedEventArgs e)
         {
-            g.eraseMazeGrid(maze);
+            eraseMaze(maze_canvas);
 
-            if (maze.Children.Count == 0)
+            if (maze_canvas.Children.Count == 0)
             {
-                maze_generate.IsEnabled = true;
-                maze_reset.IsEnabled = false;
-                generation_algorithm_list.IsEnabled = true;
+                maze_generate_button.IsEnabled = true;
+                maze_reset_button.IsEnabled = false;
+                generation_algorithm_box.IsEnabled = true;
             }
         }
 
         /* MazeGenerationAlgorthmが選択されたとき */
         private void selectedAlgorithm(object sender, SelectionChangedEventArgs e)
         {
-            var item = generation_algorithm_list.SelectedItem as MazeGenerationAlgorithm;
+            var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             if (item != null)
             {
-                maze_generate.IsEnabled = true;
+                maze_generate_button.IsEnabled = true;
             }
         }
     }
