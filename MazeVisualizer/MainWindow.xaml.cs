@@ -12,40 +12,40 @@ namespace MazeVisualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        Maze m;
-        ObservableCollection<AlgorithmList> al = new ObservableCollection<AlgorithmList>()
+        Maze maze;
+        ObservableCollection<AlgorithmList> item_list = new ObservableCollection<AlgorithmList>()
         {
             new AlgorithmList{AlgorithmId = Id.SDM, AlgorithmName = "棒倒し法"},
             new AlgorithmList{AlgorithmId = Id.WEM, AlgorithmName = "壁伸ばし法"},
             new AlgorithmList{AlgorithmId = Id.DM,  AlgorithmName = "穴掘り法"}
         };
 
-        /* コンストラクタ */
+        /* ComboBoxに項目を追加 */
         public MainWindow()
         {
             InitializeComponent();
 
-            this.DataContext = al;
+            this.DataContext = item_list;
         }
 
         /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
         {
-            m = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
             var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             if (item.AlgorithmId == Id.SDM)
             {
-                StickDownMethod(m);
+                StickDownMethod(maze);
             }
             else if (item.AlgorithmId == Id.WEM)
             {
-                WallExtendMethod(m);
+                WallExtendMethod(maze);
             }
             else if (item.AlgorithmId == Id.DM)
             {
-                DiggingMethod(m);
+                DiggingMethod(maze);
             }
-            drawMaze(maze_canvas, m);
+            drawMaze(maze_canvas, maze);
 
             if (maze_canvas.Children.Count != 0)
             {

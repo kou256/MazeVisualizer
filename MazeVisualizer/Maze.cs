@@ -2,7 +2,7 @@
 {
     class Maze
     {
-        /* プロパティ */
+        /* 各種サイズとフラグ */
         public int GridHeight { get; set; } = 16;
         public int GridWidth { get; set; } = 16;
         public int GridRow { get; set; }
@@ -10,6 +10,7 @@
         public bool[,] IsWall { get; set; }
         public bool[,] IsDiscoverd { get; set; }
 
+        /* 外周は壁、それ以外は壁か床 */
         public void InitializeMaze(bool aisle_exists)
         {
             IsWall = new bool[GridRow, GridColumn];
@@ -38,6 +39,7 @@
             }
         }
 
+        /* 2次元座標 */
         public struct Coordinate
         {
             public int X { get; set; }
