@@ -30,8 +30,7 @@ namespace MazeVisualizer
 
         /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
-        {
-            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+        { 
             var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             if (item.AlgorithmId == Id.SDM)
             {
@@ -76,6 +75,24 @@ namespace MazeVisualizer
             {
                 maze_generate_button.IsEnabled = true;
             }
+        }
+
+        private void changeCellCountByKey(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+            maze.InitializeMaze(true);
+
+            eraseMaze(maze_canvas);
+            drawMaze(maze_canvas, maze);
+        }
+
+        private void changeCellCountByMouse(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+            maze.InitializeMaze(true);
+
+            eraseMaze(maze_canvas);
+            drawMaze(maze_canvas, maze);
         }
     }
 }
