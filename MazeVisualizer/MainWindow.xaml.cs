@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using static MazeVisualizer.Drawer;
 using static MazeVisualizer.MazeGenerationAlgorithm;
 using static MazeVisualizer.AlgorithmList;
 
@@ -13,6 +12,7 @@ namespace MazeVisualizer
     public partial class MainWindow : Window
     {
         Maze maze;
+        Drawer maze_drawer = new Drawer();
         ObservableCollection<AlgorithmList> item_list = new ObservableCollection<AlgorithmList>()
         {
             new AlgorithmList{AlgorithmId = Id.SDM, AlgorithmName = "棒倒し法"},
@@ -44,7 +44,7 @@ namespace MazeVisualizer
             {
                 DiggingMethod(maze);
             }
-            drawMaze(maze_canvas, maze);
+            maze_drawer.drawMaze(maze_canvas, maze);
 
             if (maze_canvas.Children.Count != 0)
             {
@@ -57,7 +57,7 @@ namespace MazeVisualizer
         /* Resetボタンが押されたとき */
         private void resetMaze(object sender, RoutedEventArgs e)
         {
-            eraseMaze(maze_canvas);
+            maze_drawer.eraseMaze(maze_canvas);
 
             if (maze_canvas.Children.Count == 0)
             {
@@ -94,8 +94,8 @@ namespace MazeVisualizer
             maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
             maze.InitializeMaze(true);
 
-            eraseMaze(maze_canvas);
-            drawMaze(maze_canvas, maze);
+            maze_drawer.eraseMaze(maze_canvas);
+            maze_drawer.drawMaze(maze_canvas, maze);
         }
     }
 }

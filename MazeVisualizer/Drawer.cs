@@ -6,10 +6,12 @@ namespace MazeVisualizer
 {
     class Drawer
     {
+        private Rectangle[,] grid;
+
         /* 迷路のマス目を描画する */
-        public static void drawMaze(Canvas target_canvas, Maze target_maze)
+        public void drawMaze(Canvas target_canvas, Maze target_maze)
         {
-            Rectangle[,] grid = new Rectangle[target_maze.GridRow, target_maze.GridColumn];
+            grid = new Rectangle[target_maze.GridRow, target_maze.GridColumn];
 
             for (int y = 0; y < target_maze.GridRow; y++)
             {
@@ -39,8 +41,8 @@ namespace MazeVisualizer
                         }
                         else
                         {
-                            grid[y, x].Stroke = Brushes.LightGray;
-                            grid[y, x].Fill = Brushes.LightGray;
+                            grid[y, x].Stroke = Brushes.White;
+                            grid[y, x].Fill = Brushes.White;
                         }
                     }
                     else if (y % 2 == 1 && x % 2 == 0)
@@ -56,8 +58,8 @@ namespace MazeVisualizer
                         }
                         else
                         {
-                            grid[y, x].Stroke = Brushes.LightGray;
-                            grid[y, x].Fill = Brushes.LightGray;
+                            grid[y, x].Stroke = Brushes.White;
+                            grid[y, x].Fill = Brushes.White;
                         }
                     }
                     else
@@ -75,8 +77,13 @@ namespace MazeVisualizer
             }
         }
 
+        public void drawMazePartial(Canvas target_canvas, Maze target_maze)
+        {
+
+        }
+
         /* 迷路のマス目を削除する */
-        public static void eraseMaze(Canvas target_canvas)
+        public void eraseMaze(Canvas target_canvas)
         {
             target_canvas.Children.Clear();
         }
