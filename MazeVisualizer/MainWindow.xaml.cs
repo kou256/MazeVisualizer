@@ -75,18 +75,21 @@ namespace MazeVisualizer
             {
                 maze_generate_button.IsEnabled = true;
             }
+
+            upgradeMazeFrame();
         }
 
         private void changeCellCountByKey(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
-            maze.InitializeMaze(true);
-
-            eraseMaze(maze_canvas);
-            drawMaze(maze_canvas, maze);
+            upgradeMazeFrame();
         }
 
         private void changeCellCountByMouse(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            upgradeMazeFrame();
+        }
+
+        private void upgradeMazeFrame()
         {
             maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
             maze.InitializeMaze(true);
