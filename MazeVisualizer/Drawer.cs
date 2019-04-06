@@ -1,6 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MazeVisualizer
 {
@@ -25,8 +27,6 @@ namespace MazeVisualizer
                         grid[y, x].Width = 1;
                         Canvas.SetTop(grid[y, x], y / 2 * (target_maze.GridHeight + 1));
                         Canvas.SetLeft(grid[y, x], x / 2 * (target_maze.GridWidth + 1));
-                        grid[y, x].Stroke = Brushes.Black;
-                        grid[y, x].Fill = Brushes.Black;
                     }
                     else if (y % 2 == 0 && x % 2 == 1)
                     {
@@ -34,16 +34,6 @@ namespace MazeVisualizer
                         grid[y, x].Width = target_maze.GridWidth;
                         Canvas.SetTop(grid[y, x], y / 2 * (target_maze.GridHeight + 1));
                         Canvas.SetLeft(grid[y, x], x / 2 * (target_maze.GridWidth + 1) + 1);
-                        if (target_maze.IsWall[y, x])
-                        {
-                            grid[y, x].Stroke = Brushes.Black;
-                            grid[y, x].Fill = Brushes.Black;
-                        }
-                        else
-                        {
-                            grid[y, x].Stroke = Brushes.White;
-                            grid[y, x].Fill = Brushes.White;
-                        }
                     }
                     else if (y % 2 == 1 && x % 2 == 0)
                     {
@@ -51,16 +41,6 @@ namespace MazeVisualizer
                         grid[y, x].Width = 1;
                         Canvas.SetTop(grid[y, x], y / 2 * (target_maze.GridHeight + 1) + 1);
                         Canvas.SetLeft(grid[y, x], x / 2 * (target_maze.GridWidth + 1));
-                        if (target_maze.IsWall[y, x])
-                        {
-                            grid[y, x].Stroke = Brushes.Black;
-                            grid[y, x].Fill = Brushes.Black;
-                        }
-                        else
-                        {
-                            grid[y, x].Stroke = Brushes.White;
-                            grid[y, x].Fill = Brushes.White;
-                        }
                     }
                     else
                     {
@@ -68,18 +48,35 @@ namespace MazeVisualizer
                         grid[y, x].Width = target_maze.GridWidth;
                         Canvas.SetTop(grid[y, x], y / 2 * (target_maze.GridHeight + 1) + 1);
                         Canvas.SetLeft(grid[y, x], x / 2 * (target_maze.GridWidth + 1) + 1);
+                    }
+                    if (target_maze.IsWall[y, x])
+                    {
+                        grid[y, x].Stroke = Brushes.Black;
+                        grid[y, x].Fill = Brushes.Black;
+                    }
+                    else
+                    {
                         grid[y, x].Stroke = Brushes.White;
                         grid[y, x].Fill = Brushes.White;
-                    } 
+                    }
 
                     target_canvas.Children.Add(grid[y, x]);
                 }
             }
         }
 
-        public void drawMazePartial(Canvas target_canvas, Maze target_maze)
+        public void drawMazePartial(Maze target_maze, int x, int y)
         {
-
+            if (target_maze.IsWall[y, x])
+            {
+                grid[y, x].Stroke = Brushes.Black;
+                grid[y, x].Fill = Brushes.Black;
+            }
+            else
+            {
+                grid[y, x].Stroke = Brushes.White;
+                grid[y, x].Fill = Brushes.White;
+            }
         }
 
         /* 迷路のマス目を削除する */

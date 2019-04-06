@@ -34,17 +34,17 @@ namespace MazeVisualizer
             var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             if (item.AlgorithmId == Id.SDM)
             {
-                StickDownMethod(maze);
+                StickDownMethod(maze, maze_drawer);
             }
             else if (item.AlgorithmId == Id.WEM)
             {
-                WallExtendMethod(maze);
+                WallExtendMethod(maze, maze_drawer);
             }
             else if (item.AlgorithmId == Id.DM)
             {
-                DiggingMethod(maze);
+                DiggingMethod(maze, maze_drawer);
             }
-            maze_drawer.drawMaze(maze_canvas, maze);
+            //maze_drawer.drawMaze(maze_canvas, maze);
 
             if (maze_canvas.Children.Count != 0)
             {
@@ -92,6 +92,7 @@ namespace MazeVisualizer
         private void upgradeMazeFrame()
         {
             maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+
             maze.InitializeMaze(true);
 
             maze_drawer.eraseMaze(maze_canvas);
