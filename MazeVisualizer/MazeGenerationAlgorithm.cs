@@ -10,42 +10,43 @@ namespace MazeVisualizer
         public static void StickDownMethod(Maze maze, Drawer drawer)
         {
             Random rand = new Random();
-            List<Maze.Coordinate> pillar_coord = new List<Maze.Coordinate>();
+            List<Maze.Coordinate> pillar_coordinate = new List<Maze.Coordinate>();
 
             for (int i = 2; i < maze.GridRow - 2; i += 2)
             {
                 for (int j = 2; j < maze.GridColumn - 2; j += 2)
                 {
-                    pillar_coord.Add(new Maze.Coordinate { X = j, Y = i });
+                    pillar_coordinate.Add(new Maze.Coordinate { X = j, Y = i });
                 }
             }
 
-            var timer = new DispatcherTimer(DispatcherPriority.Normal) { Interval = TimeSpan.FromSeconds(0.1) };
+            DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.Normal) { Interval = TimeSpan.FromSeconds(0.1) };
             timer.Tick += (s, e) =>
             {
-                if (pillar_coord.Count == 0)
+                if (pillar_coordinate.Count == 0)
                 {
                     timer.Stop();
                 }
                 else
                 {
-                    Maze.Coordinate coord = pillar_coord[0];
-                    pillar_coord.Remove(coord); 
+                    Maze.Coordinate next_coordinate = pillar_coordinate[0];
+                    int x = next_coordinate.X, y = next_coordinate.Y;
+                    pillar_coordinate.Remove(next_coordinate); 
 
                     List<Direction> wall_candidates_direction = new List<Direction>();
-                    if (coord.Y == 2)
+                    if (y == 2)
                     {
                         wall_candidates_direction.Add(Direction.UP);
                     }
-                    if (!maze.IsWall[coord.Y + 1, coord.X])
+                    if (!maze.IsWall[y + 1, x])
                     {
                         wall_candidates_direction.Add(Direction.DOWN);
                     }
-                    if (!maze.IsWall[coord.Y, coord.X - 1])
+                    if (!maze.IsWall[y, x - 1])
                     {
                         wall_candidates_direction.Add(Direction.LEFT);
                     }
-                    if (!maze.IsWall[coord.Y, coord.X + 1])
+                    if (!maze.IsWall[y, x + 1])
                     {
                         wall_candidates_direction.Add(Direction.RIGHT);
                     }
@@ -68,10 +69,11 @@ namespace MazeVisualizer
                             break;
                     }
 
-                    maze.IsWall[coord.Y, coord.X] = true;
-                    maze.IsWall[coord.Y + y_moving_distance, coord.X + x_moving_distance] = true;
-                    drawer.drawMazePartial(maze, coord.X, coord.Y);
-                    drawer.drawMazePartial(maze, coord.X + x_moving_distance, coord.Y + y_moving_distance);
+                    for (int k = 0; k <= 1; k ++)
+                    {
+                        maze.IsWall[y + k * y_moving_distance, x + k * x_moving_distance] = true;
+                        drawer.paintSingleCell(maze, x + k * x_moving_distance, y + k * y_moving_distance);
+                    }
                 }
             };
             timer.Start();
@@ -81,52 +83,52 @@ namespace MazeVisualizer
         public static void WallExtendMethod(Maze maze, Drawer drawer)
         {
             Random rand = new Random();
-            List<Maze.Coordinate> pillar_coord = new List<Maze.Coordinate>();
-            Stack<Maze.Coordinate> prev_pillar_coord = new Stack<Maze.Coordinate>();
+            List<Maze.Coordinate> pillar_coordinate = new List<Maze.Coordinate>();
+            Stack<Maze.Coordinate> prev_pillar_coordinate = new Stack<Maze.Coordinate>();
 
             for (int i = 2; i < maze.GridRow - 2; i += 2)
             {
                 for (int j = 2; j < maze.GridColumn - 2; j += 2)
                 {
-                    pillar_coord.Add(new Maze.Coordinate { X = j, Y = i });
+                    pillar_coordinate.Add(new Maze.Coordinate { X = j, Y = i });
                 }
             }
 
-            Maze.Coordinate coord = pillar_coord[rand.Next(pillar_coord.Count)];
+            Maze.Coordinate coord = pillar_coordinate[rand.Next(pillar_coordinate.Count)];
             int x = coord.X, y = coord.Y;
-            prev_pillar_coord.Push(coord);
-            pillar_coord.Remove(coord);
+            prev_pillar_coordinate.Push(coord);
+            pillar_coordinate.Remove(coord);
 
             var timer = new DispatcherTimer(DispatcherPriority.Normal) { Interval = TimeSpan.FromSeconds(0.1) };
             timer.Tick += (s, e) =>
             {
-                if (pillar_coord.Count == 0)
+                if (pillar_coordinate.Count == 0)
                 {
                     timer.Stop();
                 }
                 else
                 {
                     List<Direction> wall_candidates_direction = new List<Direction>();
-                    if (!maze.IsWall[y - 1, x] && !prev_pillar_coord.Contains(new Maze.Coordinate { X = x, Y = y - 2 }))
+                    if (!maze.IsWall[y - 1, x] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x, Y = y - 2 }))
                     {
                         wall_candidates_direction.Add(Direction.UP);
                     }
-                    if (!maze.IsWall[y + 1, x] && !prev_pillar_coord.Contains(new Maze.Coordinate { X = x, Y = y + 2 }))
+                    if (!maze.IsWall[y + 1, x] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x, Y = y + 2 }))
                     {
                         wall_candidates_direction.Add(Direction.DOWN);
                     }
-                    if (!maze.IsWall[y, x - 1] && !prev_pillar_coord.Contains(new Maze.Coordinate { X = x - 2, Y = y }))
+                    if (!maze.IsWall[y, x - 1] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x - 2, Y = y }))
                     {
                         wall_candidates_direction.Add(Direction.LEFT);
                     }
-                    if (!maze.IsWall[y, x + 1] && !prev_pillar_coord.Contains(new Maze.Coordinate { X = x + 2, Y = y }))
+                    if (!maze.IsWall[y, x + 1] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x + 2, Y = y }))
                     {
                         wall_candidates_direction.Add(Direction.RIGHT);
                     }
 
                     if (wall_candidates_direction.Count == 0)
                     {
-                        Maze.Coordinate next_coord = prev_pillar_coord.Pop();
+                        Maze.Coordinate next_coord = prev_pillar_coordinate.Pop();
                         x = next_coord.X;
                         y = next_coord.Y;
                     }
@@ -152,20 +154,20 @@ namespace MazeVisualizer
                         for (int k = 0; k <= 1; k++)
                         {
                             maze.IsWall[y + k * y_moving_distance, x + k * x_moving_distance] = true;
-                            drawer.drawMazePartial(maze, x + k * x_moving_distance, y + k * y_moving_distance);
+                            drawer.paintSingleCell(maze, x + k * x_moving_distance, y + k * y_moving_distance);
                         }
 
-                        prev_pillar_coord.Push(new Maze.Coordinate { X = x, Y = y });
-                        pillar_coord.Remove(new Maze.Coordinate { X = x, Y = y });
+                        prev_pillar_coordinate.Push(new Maze.Coordinate { X = x, Y = y });
+                        pillar_coordinate.Remove(new Maze.Coordinate { X = x, Y = y });
                         x += 2 * x_moving_distance;
                         y += 2 * y_moving_distance;
 
-                        if (pillar_coord.Count > 0 && maze.IsWall[y, x]) 
+                        if (pillar_coordinate.Count > 0 && maze.IsWall[y, x]) 
                         {
-                            Maze.Coordinate next_coord = pillar_coord[rand.Next(pillar_coord.Count)];
+                            Maze.Coordinate next_coord = pillar_coordinate[rand.Next(pillar_coordinate.Count)];
                             x = next_coord.X;
                             y = next_coord.Y;
-                            prev_pillar_coord.Clear();
+                            prev_pillar_coordinate.Clear();
                         }
                     }
                 }
@@ -276,7 +278,7 @@ namespace MazeVisualizer
                         for (int k = 0; k < 3; k++)
                         {
                             maze.IsWall[y + k * y_moving_distance, x + k * x_moving_distance] = false;
-                            drawer.drawMazePartial(maze, x + k * x_moving_distance, y + k * y_moving_distance);
+                            drawer.paintSingleCell(maze, x + k * x_moving_distance, y + k * y_moving_distance);
                         }
                         astil_coord.Add(new Maze.Coordinate { X = x, Y = y });
                         x += 2 * x_moving_distance;

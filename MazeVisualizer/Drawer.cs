@@ -48,34 +48,38 @@ namespace MazeVisualizer
                         Canvas.SetLeft(grid[y, x], x / 2 * (target_maze.GridWidth + 1) + 1);
                     }
 
-                    if (target_maze.IsWall[y, x])
-                    {
-                        grid[y, x].Stroke = Brushes.Black;
-                        grid[y, x].Fill = Brushes.Black;
-                    }
-                    else
-                    {
-                        grid[y, x].Stroke = Brushes.White;
-                        grid[y, x].Fill = Brushes.White;
-                    }
+                    paintSingleCell(target_maze, x, y);
 
                     target_canvas.Children.Add(grid[y, x]);
                 }
             }
         }
 
-        /* 指定したマスを更新 */
-        public void drawMazePartial(Maze target_maze, int x, int y)
+        /* 指定したマスを塗る */
+        public void paintSingleCell(Maze target_maze, int x, int y)
         {
-            if (target_maze.IsWall[y, x])
+            if (y == 1 && x == 1)
             {
-                grid[y, x].Stroke = Brushes.Black;
-                grid[y, x].Fill = Brushes.Black;
+                grid[y, x].Stroke = Brushes.Blue;
+                grid[y, x].Fill = Brushes.Blue;
+            }
+            else if (y == target_maze.GridRow - 2 && x == target_maze.GridColumn - 2)
+            {
+                grid[y, x].Stroke = Brushes.Red;
+                grid[y, x].Fill = Brushes.Red;
             }
             else
             {
-                grid[y, x].Stroke = Brushes.White;
-                grid[y, x].Fill = Brushes.White;
+                if (target_maze.IsWall[y, x])
+                {
+                    grid[y, x].Stroke = Brushes.Black;
+                    grid[y, x].Fill = Brushes.Black;
+                }
+                else
+                {
+                    grid[y, x].Stroke = Brushes.White;
+                    grid[y, x].Fill = Brushes.White;
+                }
             }
         }
 
