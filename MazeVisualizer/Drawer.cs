@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace MazeVisualizer
 {
@@ -10,8 +8,8 @@ namespace MazeVisualizer
     {
         private Rectangle[,] grid;
 
-        /* 迷路のマス目を描画する */
-        public void drawMaze(Canvas target_canvas, Maze target_maze)
+        /* 迷路の初期状態 */
+        public void drawMazeInitialState(Canvas target_canvas, Maze target_maze)
         {
             grid = new Rectangle[target_maze.GridRow, target_maze.GridColumn];
 
@@ -49,6 +47,7 @@ namespace MazeVisualizer
                         Canvas.SetTop(grid[y, x], y / 2 * (target_maze.GridHeight + 1) + 1);
                         Canvas.SetLeft(grid[y, x], x / 2 * (target_maze.GridWidth + 1) + 1);
                     }
+
                     if (target_maze.IsWall[y, x])
                     {
                         grid[y, x].Stroke = Brushes.Black;
@@ -65,6 +64,7 @@ namespace MazeVisualizer
             }
         }
 
+        /* 指定したマスを更新 */
         public void drawMazePartial(Maze target_maze, int x, int y)
         {
             if (target_maze.IsWall[y, x])
@@ -79,7 +79,7 @@ namespace MazeVisualizer
             }
         }
 
-        /* 迷路のマス目を削除する */
+        /* 迷路を削除 */
         public void eraseMaze(Canvas target_canvas)
         {
             target_canvas.Children.Clear();

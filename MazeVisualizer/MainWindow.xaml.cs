@@ -44,7 +44,6 @@ namespace MazeVisualizer
             {
                 DiggingMethod(maze, maze_drawer);
             }
-            //maze_drawer.drawMaze(maze_canvas, maze);
 
             if (maze_canvas.Children.Count != 0)
             {
@@ -91,12 +90,22 @@ namespace MazeVisualizer
 
         private void upgradeMazeFrame()
         {
+            var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
-
-            maze.InitializeMaze(true);
+            if (item != null)
+            {
+                if (item.AlgorithmId == Id.DM)
+                {
+                    maze.InitializeMaze(false);
+                }
+                else
+                {
+                    maze.InitializeMaze(true);
+                }
+            }
 
             maze_drawer.eraseMaze(maze_canvas);
-            maze_drawer.drawMaze(maze_canvas, maze);
+            maze_drawer.drawMazeInitialState(maze_canvas, maze);
         }
     }
 }
