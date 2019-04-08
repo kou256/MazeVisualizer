@@ -14,7 +14,7 @@
             <Canvas Name="gui_canvas" Margin="3">
                 <StackPanel Canvas.Left="10" Width="202" HorizontalAlignment="Left" VerticalAlignment="Top" Height="81">
                     <Label Content="マス目の数"/>
-                    <Slider x:Name="cell_count" LargeChange="1" Maximum="32" SmallChange="1" Minimum="2" TickPlacement="BottomRight" IsSnapToTickEnabled="true" Value="16"/>
+                    <Slider x:Name="cell_count" LargeChange="1" Maximum="32" SmallChange="1" Minimum="2" TickPlacement="BottomRight" IsSnapToTickEnabled="true" Value="16" KeyUp="changeCellCountByKey" LostMouseCapture="changeCellCountByMouse"/>
                     <TextBlock Text="{Binding Value, ElementName=cell_count}"/>
                 </StackPanel>
                 <StackPanel/>

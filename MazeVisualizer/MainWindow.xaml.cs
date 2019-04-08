@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using static MazeVisualizer.Drawer;
 using static MazeVisualizer.MazeGenerationAlgorithm;
 using static MazeVisualizer.AlgorithmList;
 
@@ -13,6 +12,7 @@ namespace MazeVisualizer
     public partial class MainWindow : Window
     {
         Maze maze;
+        Drawer maze_drawer = new Drawer();
         ObservableCollection<AlgorithmList> item_list = new ObservableCollection<AlgorithmList>()
         {
             new AlgorithmList{AlgorithmId = Id.SDM, AlgorithmName = "棒倒し法"},
@@ -30,22 +30,20 @@ namespace MazeVisualizer
 
         /* Generateボタンが押されたとき */
         private void generateMaze(object sender, RoutedEventArgs e)
-        {
-            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+        { 
             var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             if (item.AlgorithmId == Id.SDM)
             {
-                StickDownMethod(maze);
+                StickDownMethod(maze, maze_drawer);
             }
             else if (item.AlgorithmId == Id.WEM)
             {
-                WallExtendMethod(maze);
+                WallExtendMethod(maze, maze_drawer);
             }
             else if (item.AlgorithmId == Id.DM)
             {
-                DiggingMethod(maze);
+                DiggingMethod(maze, maze_drawer);
             }
-            drawMaze(maze_canvas, maze);
 
             if (maze_canvas.Children.Count != 0)
             {
@@ -58,7 +56,7 @@ namespace MazeVisualizer
         /* Resetボタンが押されたとき */
         private void resetMaze(object sender, RoutedEventArgs e)
         {
-            eraseMaze(maze_canvas);
+            maze_drawer.eraseMaze(maze_canvas);
 
             if (maze_canvas.Children.Count == 0)
             {
@@ -76,6 +74,38 @@ namespace MazeVisualizer
             {
                 maze_generate_button.IsEnabled = true;
             }
+
+            upgradeMazeFrame();
+        }
+
+        private void changeCellCountByKey(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            upgradeMazeFrame();
+        }
+
+        private void changeCellCountByMouse(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            upgradeMazeFrame();
+        }
+
+        private void upgradeMazeFrame()
+        {
+            var item = generation_algorithm_box.SelectedItem as AlgorithmList;
+            maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
+            if (item != null)
+            {
+                if (item.AlgorithmId == Id.DM)
+                {
+                    maze.InitializeMaze(false);
+                }
+                else
+                {
+                    maze.InitializeMaze(true);
+                }
+            }
+
+            maze_drawer.eraseMaze(maze_canvas);
+            maze_drawer.drawMazeInitialState(maze_canvas, maze);
         }
     }
 }
