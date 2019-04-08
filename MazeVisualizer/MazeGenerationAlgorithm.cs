@@ -128,9 +128,20 @@ namespace MazeVisualizer
 
                     if (wall_candidates_direction.Count == 0)
                     {
-                        Maze.Coordinate next_coord = prev_pillar_coordinate.Pop();
-                        x = next_coord.X;
-                        y = next_coord.Y;
+                        while (true)
+                        {
+                            Maze.Coordinate next_coord = prev_pillar_coordinate.Pop();
+                            x = next_coord.X;
+                            y = next_coord.Y;
+
+                            if (!maze.IsWall[y - 1, x] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x, Y = y - 2 }) ||
+                                !maze.IsWall[y + 1, x] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x, Y = y + 2 }) ||
+                                !maze.IsWall[y, x - 1] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x - 2, Y = y }) ||
+                                !maze.IsWall[y, x + 1] && !prev_pillar_coordinate.Contains(new Maze.Coordinate { X = x + 2, Y = y }))
+                            {
+                                break;
+                            }
+                        }
                     }
                     else
                     {
@@ -162,7 +173,7 @@ namespace MazeVisualizer
                         x += 2 * x_moving_distance;
                         y += 2 * y_moving_distance;
 
-                        if (pillar_coordinate.Count > 0 && maze.IsWall[y, x]) 
+                        if (pillar_coordinate.Count > 0 && maze.IsWall[y, x])
                         {
                             Maze.Coordinate next_coord = pillar_coordinate[rand.Next(pillar_coordinate.Count)];
                             x = next_coord.X;
