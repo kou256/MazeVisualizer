@@ -50,6 +50,7 @@ namespace MazeVisualizer
                 maze_generate_button.IsEnabled = false;
                 maze_reset_button.IsEnabled = true;
                 generation_algorithm_box.IsEnabled = false;
+                cell_count.IsEnabled = false;
             }
         }
 
@@ -63,7 +64,9 @@ namespace MazeVisualizer
                 maze_generate_button.IsEnabled = true;
                 maze_reset_button.IsEnabled = false;
                 generation_algorithm_box.IsEnabled = true;
+                cell_count.IsEnabled = false;
             }
+            updateMaze();
         }
 
         /* MazeGenerationAlgorthmが選択されたとき */
@@ -73,22 +76,23 @@ namespace MazeVisualizer
             if (item != null)
             {
                 maze_generate_button.IsEnabled = true;
+                cell_count.IsEnabled = true;
             }
 
-            upgradeMazeFrame();
+            updateMaze();
         }
 
         private void changeCellCountByKey(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            upgradeMazeFrame();
+            updateMaze();
         }
 
         private void changeCellCountByMouse(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            upgradeMazeFrame();
+            updateMaze();
         }
 
-        private void upgradeMazeFrame()
+        private void updateMaze()
         {
             var item = generation_algorithm_box.SelectedItem as AlgorithmList;
             maze = new Maze { GridRow = 2 * (int)cell_count.Value + 1, GridColumn = 2 * (int)cell_count.Value + 1 };
